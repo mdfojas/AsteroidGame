@@ -113,7 +113,6 @@ const keys = {
 
 const projectiles = []
 const asteroids = []
-const MOVESPEED = 3
 const ROTSPEED = 0.05
 const ASTEROID_MIN_SIZE = 25
 const ASTEROID_MAX_SIZE = 50
@@ -123,7 +122,10 @@ const BRAKESTRENGTH = 0.95
 const PROJECTILESPEED = 3
 const GAME_WIN_TIME = 60000
 const gameStart = new Date().getTime();
+const MAX_MOVE_SPEED = 6
+const MIN_MOVE_SPEED = 3
 
+let MOVESPEED = MIN_MOVE_SPEED
 let GAMEOVER = false
 let GAMEWON = false
 let asteroidSpawning;
@@ -403,19 +405,18 @@ window.addEventListener('keydown', (event) => {
     switch (event.code){
         case 'KeyW':
             keys.w.pressed = true
-            console.log("W pressed!")
             break; 
         case 'KeyA':
             keys.a.pressed = true
-            console.log("A pressed!")
             break; 
         case 'KeyS':
             keys.s.pressed = true
-            console.log("S pressed!")
             break; 
         case 'KeyD':
             keys.d.pressed = true
-            console.log("D pressed!")
+            break; 
+        case 'ShiftLeft':
+            MOVESPEED = MAX_MOVE_SPEED
             break; 
         case 'Space':
             projectiles.push(new Projectile({
@@ -443,6 +444,9 @@ window.addEventListener('keyup', (event) => {
             break; 
         case 'KeyD':
             keys.d.pressed = false
-            break;        
+            break;
+        case 'ShiftLeft':
+            MOVESPEED = MIN_MOVE_SPEED
+            break;         
     }
 })
