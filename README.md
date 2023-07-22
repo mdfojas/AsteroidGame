@@ -1,2 +1,2 @@
 # AsteroidGame
-Asteroid game implemented in pure javascript
+Asteroid game implemented in javascript and html
