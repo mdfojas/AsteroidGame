@@ -174,7 +174,6 @@ asteroidSpawning = window.setInterval(() =>{
         radius
     }))
 
-    console.log(asteroids)
 }, ASTEROID_SPAWN)
 
 function checkCollision(sprite1, sprite2, type){
@@ -213,19 +212,23 @@ function slowDown(){
 function drawScoreHealth(){
     ctx.fillStyle = 'white';
     ctx.font = '24px Arial'; // Customize the font size and family as needed
-    ctx.textAlign = 'center';
+    ctx.textAlign = 'left';
     ctx.textBaseline = 'top';
     const scoreText = `Score: ${player.score}`; 
     const healthText = `Health: ${player.health}`;
-    const textX = canvas.width / 2;
-    const textY = 10; // 10 pixels padding from the top
+    const textX = 20;
+    const textY = 20; // 10 pixels padding from the top
     let invincibilityText = '';
     if (player.invincible && player.invincibilityTime > 0) {
         invincibilityText = `Invincibility: ${(player.invincibilityTime / 1000).toFixed(1)}`
     }
+    
+    const elapsedTime = `Time: ${((new Date().getTime()- gameStart)/1000).toFixed(1)}`
+
     ctx.fillText(healthText, textX, textY);
     ctx.fillText(scoreText, textX, textY+20);
-    ctx.fillText(invincibilityText, textX, textY+40);
+    ctx.fillText(elapsedTime, textX, textY+40);
+    ctx.fillText(invincibilityText, textX, textY+60);
 
 }
 
@@ -341,7 +344,6 @@ function animate(){
         if (checkCollision(player, asteroid, 1)){
             // check if Game Over (if the ships hp is less than 0)
             if (!player.invincible) player.health -= asteroid.damage
-            console.log(`Player hit! hp: ${player.health}`)
             asteroids.splice(i, 1)
             if(player.health <= 0){
                 GAMEOVER = true
